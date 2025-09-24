@@ -1,91 +1,204 @@
 # Multi-Tenant SaaS Notes App
 
-A secure multi-tenant notes application with subscription plans, user role management, and data isolation between tenants.
+A modern, full-featured note-taking application built with a multi-tenant architecture, allowing multiple organizations (tenants) to use the service with complete data isolation and custom user management.
+
+![Notes App Screenshot](public/next.svg)
+
+🚀 **Live Demo**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
 
 ## Features
 
-### Multi-Tenancy
+### Multi-Tenancy Architecture
 
-The application implements multi-tenancy using a **shared schema with tenant ID columns**. This approach:
+Our application implements multi-tenancy using a **shared schema with tenant ID columns** approach:
 
-- Maintains data isolation between tenants through tenant ID foreign keys
-- Enforces tenant isolation at the API level through middleware checks
-- Simplifies database management with a single database instance
-- Enables efficient resource utilization with shared infrastructure
+- **Data Isolation**: Each tenant's data is securely separated through tenant ID foreign keys
+- **API Security**: Middleware ensures users can only access their own tenant's data
+- **Efficient Infrastructure**: Single database instance with logical separation of data
+- **Scalable Design**: Built to support hundreds of independent organizations
 
-All data queries include tenant ID filters to ensure strict data isolation between tenants.
+Each database query automatically filters by tenant ID, making it impossible for data to leak between organizations.
 
-### Authentication and Authorization
+### Security & Authentication
 
-- JWT-based authentication system
-- Two user roles: Admin and Member
-- Admins can invite users and upgrade subscriptions
-- Members can create, view, edit, and delete notes
-- Middleware ensures proper role-based access to APIs
+- **JWT Authentication**: Secure token-based authentication system
+- **Role-Based Access Control**: Two clearly defined user roles:
+  - **Admin**: Can manage organization settings, invite team members, and control subscription
+  - **Member**: Can create and manage notes within permission boundaries
+- **Middleware Protection**: API routes are protected by authentication and authorization middleware
+- **Secure Password Handling**: Proper password hashing and security practices
 
 ### Test Accounts
 
-The following test accounts are available with password: `password`
+Ready to try the application? Use these test accounts (all use password: `password`):
 
-- admin@acme.test (Admin, tenant: Acme)
-- user@acme.test (Member, tenant: Acme)
-- admin@globex.test (Admin, tenant: Globex)
-- user@globex.test (Member, tenant: Globex)
+| Email | Role | Organization | Plan |
+|-------|------|-------------|------|
+| admin@acme.test | Admin | Acme Inc. | Pro |
+| user@acme.test | Member | Acme Inc. | Pro |
+| admin@globex.test | Admin | Globex Corp | Free |
+| user@globex.test | Member | Globex Corp | Free |
 
-### Subscription Feature Gating
+### Subscription Plans & Feature Gating
 
-- Free Plan: Maximum of 3 notes per tenant
-- Pro Plan: Unlimited notes
-- Admins can upgrade from Free to Pro instantly
-- API enforces note limits for tenants on the Free plan
+Our SaaS model offers tiered subscription plans with feature limitations:
 
-## Technical Implementation
+- **Free Plan**:
+  - Limited to 3 notes per organization
+  - Perfect for small teams or testing
+  - Core features available
+  
+- **Pro Plan**:
+  - Unlimited notes
+  - Enhanced feature set
+  - Priority support
+  
+- **Seamless Upgrades**: Admins can upgrade with one click, instantly removing limitations
+- **Graceful Degradation**: Clear UI indicators when limits are reached
 
-### Backend API
+## Technical Stack
 
-- Next.js API Routes with route handlers
-- JWT tokens for secure authentication
-- Role-based authorization middleware
-- Supabase PostgreSQL for data storage
-- Full CORS support for external access
+### Backend
+
+- **Framework**: Next.js API Routes with App Router architecture
+- **Database**: Supabase (PostgreSQL) for reliable, scalable data storage
+- **Authentication**: Custom JWT implementation with secure token handling
+- **API Design**: RESTful API endpoints with proper error handling
+- **Middleware**: Custom authentication and role verification middleware
+- **Security**: CORS support, input validation, and secure data practices
 
 ### Frontend
 
-- React with Next.js App Router
-- Client-side authentication state management
-- Mobile-responsive UI with Tailwind CSS
-- Role-specific UI elements and permissions
+- **Framework**: React with Next.js for server and client components
+- **State Management**: React Context API for auth state and data management
+- **Styling**: Tailwind CSS for beautiful, responsive UI components
+- **UX Design**: Intuitive interfaces with role-specific elements
+- **Accessibility**: Semantic HTML and accessible UI components
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+ 
+- npm or yarn
+- Supabase account (for database)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
+### Local Development Setup
 
-## API Endpoints
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Hrithik-12/multitenantsaasnotesapp.git
+   cd multitenantsaasnotesapp
+   ```
 
-- **Authentication**: POST /api/auth/login
-- **Notes CRUD**:
-  - GET /api/notes - List all notes
-  - POST /api/notes - Create a note
-  - GET /api/notes/:id - Get a specific note
-  - PUT /api/notes/:id - Update a note
-  - DELETE /api/notes/:id - Delete a note
-- **Tenant Management**:
-  - GET /api/tenants - List all tenants
-  - POST /api/tenants/:slug/upgrade - Upgrade tenant to Pro plan
-- **User Management**:
-  - GET /api/users - List all users (Admin only)
-  - POST /api/users - Invite new user (Admin only)
-- **Health Check**:
-  - GET /api/health - Returns { "status": "ok" }
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. **Environment configuration**
+   
+   Create a `.env.local` file with the following variables:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+   JWT_SECRET=your-secure-jwt-secret
+   NODE_ENV=development
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. **Access the application**
+   
+   Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Database Setup
+
+The application requires the following tables in Supabase:
+- `tenants`: Organization data and subscription information
+- `users`: User accounts with tenant associations
+- `notes`: Notes with tenant and user relationships
+
+Sample SQL schema is available in the `db` folder.
+
+## API Documentation
+
+### Authentication Endpoints
+
+- **Login**: `POST /api/auth/login`
+  - Request body: `{ "email": "user@example.com", "password": "yourpassword" }`
+  - Returns JWT token and user data
+
+### Notes Endpoints
+
+- **Get All Notes**: `GET /api/notes`
+  - Returns all notes for the user's tenant (filtered by permissions)
+  - Admin sees all notes, members see only their own
+
+- **Create Note**: `POST /api/notes`
+  - Request body: `{ "title": "Note Title", "content": "Note content..." }`
+  - Creates new note in the user's tenant
+
+- **Get Single Note**: `GET /api/notes/:id`
+  - Returns specific note if user has permission
+
+- **Update Note**: `PUT /api/notes/:id`
+  - Request body: `{ "title": "Updated Title", "content": "Updated content..." }`
+  - Updates note if user has permission
+
+- **Delete Note**: `DELETE /api/notes/:id`
+  - Deletes note if user has permission
+
+### Tenant Management
+
+- **Upgrade to Pro**: `POST /api/tenants/:slug/upgrade`
+  - Upgrades tenant to Pro plan (admin only)
+  - Removes note limit restriction
+
+- **Downgrade to Free**: `POST /api/tenants/:slug/downgrade`
+  - Downgrades tenant to Free plan (admin only)
+
+### User Management
+
+- **List Users**: `GET /api/users`
+  - Returns all users in the tenant (admin only)
+
+- **Invite User**: `POST /api/users`
+  - Request body: `{ "name": "User Name", "email": "user@example.com", "role": "member" }`
+  - Invites new user to the tenant (admin only)
+
+### System Endpoints
+
+- **Health Check**: `GET /api/health`
+  - Returns `{ "status": "ok" }` if the system is running
+
+## Deployment
+
+This project is deployed on Vercel:
+
+- **Production URL**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
+
+### Deploy Your Own Instance
+
+1. Fork the repository
+2. Set up your Supabase database
+3. Connect your repository to Vercel
+4. Add the environment variables
+5. Deploy!
+
+## License
+
+This project is licensed under the MIT License.
+
+## Acknowledgements
+
+- Built with Next.js 15, React, and Tailwind CSS
+- Database powered by Supabase
+- Deployed on Vercel
