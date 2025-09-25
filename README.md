@@ -2,9 +2,12 @@
 
 A modern, full-featured note-taking application built with a multi-tenant architecture, allowing multiple organizations (tenants) to use the service with complete data isolation and custom user management.
 
-![Notes App Screenshot](public/next.svg)
+![Design !! ](public/appdesign.png)
+![Auth flow!! ] (public/auth.png)
 
 🚀 **Live Demo**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
+
+> **Note:** To add your own app screenshot, place an image file named `preview.png` in the public directory. You can use a screenshot of your app's dashboard or login page.
 
 ## Features
 
@@ -55,6 +58,13 @@ Our SaaS model offers tiered subscription plans with feature limitations:
   
 - **Seamless Upgrades**: Admins can upgrade with one click, instantly removing limitations
 - **Graceful Degradation**: Clear UI indicators when limits are reached
+
+## Architecture & Design Documents
+
+Check out our architecture diagrams and design documents:
+
+- [Application Architecture Diagram](https://app.eraser.io/workspace/9NqEGGzyY8wGCIjNRkAk?origin=share)
+- [Database Schema & Entity Relationships](https://app.eraser.io/workspace/K35Ou4LV9sSeSXP99YOu?origin=share)
 
 ## Technical Stack
 
@@ -197,8 +207,30 @@ This project is deployed on Vercel:
 
 This project is licensed under the MIT License.
 
+## Additional Resources
+
+### API Testing
+
+You can test the API endpoints using our Postman collection:
+- [Postman Collection](https://orange-comet-895516.postman.co/workspace/dikshit~ae2f8ef0-1aea-4cb6-b4d4-c7d3ede02bc0/collection/31961114-e9cc9d7f-4ad0-4f3a-8c21-621b1da65353?action=share&source=copy-link&creator=31961114)
+
+### Adding Screenshots to Your Fork
+
+To customize this README with your own screenshots:
+
+1. Take a screenshot of your application (dashboard, login page, or notes view)
+2. Save the image as `preview.png` 
+3. Place it in the `/public` directory of your repository
+4. The image will automatically appear in the README
+
+You can add additional images using standard markdown syntax:
+```markdown
+![Description of image](public/your-image-name.png)
+```
+
 ## Acknowledgements
 
 - Built with Next.js 15, React, and Tailwind CSS
 - Database powered by Supabase
+- Architecture diagrams created with Eraser.io
 - Deployed on Vercel
