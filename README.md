@@ -3,7 +3,7 @@
 A modern, full-featured note-taking application built with a multi-tenant architecture, allowing multiple organizations (tenants) to use the service with complete data isolation and custom user management.
 
 ![Design !! ](public/appdesign.png)
-![Auth flow!! ] (public/auth.png)
+![Authflow!! ](public/auth.png)
 
 🚀 **Live Demo**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
 
