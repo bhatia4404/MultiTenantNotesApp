@@ -1,5 +1,5 @@
-'use client';
-import React, { useState } from 'react';
+"use client";
+import React, { useState } from "react";
 
 interface NoteFormProps {
   note?: {
@@ -12,45 +12,47 @@ interface NoteFormProps {
 }
 
 export default function NoteForm({
-  note = { title: '', content: '' },
+  note = { title: "", content: "" },
   onSubmit,
   onCancel,
   isEdit = false,
 }: NoteFormProps) {
-  const [title, setTitle] = useState<string>(note.title || '');
-  const [content, setContent] = useState<string>(note.content || '');
+  const [title, setTitle] = useState<string>(note.title || "");
+  const [content, setContent] = useState<string>(note.content || "");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!title.trim()) {
-      alert('Title is required');
+      alert("Title is required");
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     try {
       await onSubmit({ title, content });
     } catch (error) {
-      console.error('Error submitting note:', error);
+      console.error("Error submitting note:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <div className="bg-white p-6 shadow-lg rounded-2xl border border-gray-100 max-w-2xl mx-auto">
       <div className="mb-6">
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          {isEdit ? '✏️ Edit Note' : '📝 Create New Note'}
+          {isEdit ? "✏️ Edit Note" : "📝 Create New Note"}
         </h3>
         <p className="text-gray-600">
-          {isEdit ? 'Update your note details below.' : 'Fill out the form to create a new note.'}
+          {isEdit
+            ? "Update your note details below."
+            : "Fill out the form to create a new note."}
         </p>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Title */}
         <div className="space-y-2">
@@ -70,7 +72,7 @@ export default function NoteForm({
             required
           />
         </div>
-        
+
         {/* Content */}
         <div className="space-y-2">
           <label
@@ -88,7 +90,7 @@ export default function NoteForm({
             placeholder="Write your note content here..."
           />
         </div>
-        
+
         {/* Actions */}
         <div className="flex justify-end gap-3 pt-4">
           <button
@@ -110,9 +112,7 @@ export default function NoteForm({
                 Saving...
               </>
             ) : (
-              <>
-                {isEdit ? '💾 Update' : '✨ Create'}
-              </>
+              <>{isEdit ? "Update" : "Create"}</>
             )}
           </button>
         </div>
