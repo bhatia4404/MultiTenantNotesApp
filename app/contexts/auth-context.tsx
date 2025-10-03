@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
       const data = await response.json();
-      console.log("DATA RECEIVED FROM LOGIN: ", data);
+      // console.log("DATA RECEIVED FROM LOGIN: ", data);
       if (data.success) {
         // Save token and user in localStorage
         localStorage.setItem("token", data.token);

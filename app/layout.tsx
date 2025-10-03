@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Multi-Tenant Notes App",
-  description: "A multi-tenant notes application with subscription plans",
+  title: "TeamScribe",
+  description: "Notes Application",
   icons: {
     icon: "/icon.png",
   },

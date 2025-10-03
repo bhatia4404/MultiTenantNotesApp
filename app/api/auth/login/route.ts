@@ -48,9 +48,9 @@ export async function POST(request: NextRequest) {
         .select("subscription_plan")
         .eq("id", tenantId)
         .single();
-    console.log("SUBSCRIPTION PLAN : ", subscription_plan);
+    // console.log("SUBSCRIPTION PLAN : ", subscription_plan);
     if (subscription_plan_error) {
-      console.log("SUBSCRIPTION PLAN ERROR : ", subscription_plan_error);
+      // console.log("SUBSCRIPTION PLAN ERROR : ", subscription_plan_error);
       return NextResponse.json(
         {
           success: false,

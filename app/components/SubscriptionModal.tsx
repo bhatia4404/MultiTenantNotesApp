@@ -127,14 +127,14 @@ export default function SubscriptionModal({
           <button
             onClick={onClose}
             disabled={isLoading}
-            className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
+            className="px-4 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer"
           >
             Cancel
           </button>
           <button
             onClick={handleSubscriptionChange}
             disabled={isLoading}
-            className={`px-4 py-2 text-white rounded-md transition-colors focus:outline-none focus:ring-2 ${
+            className={`px-4 py-2 text-white rounded-md transition-colors focus:outline-none focus:ring-2 cursor-pointer ${
               isUpgrade
                 ? "bg-green-600 hover:bg-green-700 focus:ring-green-300"
                 : "bg-yellow-600 hover:bg-yellow-700 focus:ring-yellow-300"

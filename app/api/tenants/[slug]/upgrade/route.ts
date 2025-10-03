@@ -40,7 +40,7 @@ export async function POST(
     }
 
     // Verify the slug matches the tenant subdomain for extra security
-    console.log(tenant.subdomain.toString(), slug.toString());
+    // console.log(tenant.subdomain.toString(), slug.toString());
     if (tenant.subdomain.toString() !== slug.toString()) {
       return NextResponse.json(
         {

@@ -146,7 +146,7 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (createError) {
-      console.log("User creation error:", createError);
+      // console.log("User creation error:", createError);
       return NextResponse.json(
         {
           success: false,

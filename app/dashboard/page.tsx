@@ -47,7 +47,7 @@ export default function Dashboard() {
       </div>
     );
   }
-  console.log("USER : ", user);
+  // console.log("USER : ", user);
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -77,7 +77,7 @@ export default function Dashboard() {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={() => router.push("/admin")}
-                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer"
               >
                 <svg
                   className="w-4 h-4 mr-2"
@@ -118,11 +118,11 @@ export default function Dashboard() {
                     </span>
                     {(() => {
                       const isPro = user.subscription_plan === "pro";
-                      console.log(
-                        "Subscription plan:",
-                        user.subscription_plan,
-                        isPro
-                      );
+                      // console.log(
+                      //   "Subscription plan:",
+                      //   user.subscription_plan,
+                      //   isPro
+                      // );
 
                       return (
                         <span
@@ -153,7 +153,7 @@ export default function Dashboard() {
 
               <button
                 onClick={() => setIsModalOpen(true)}
-                className={`inline-flex items-center px-4 py-2 font-medium rounded-lg shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 mt-4 sm:mt-0 ${(() => {
+                className={`inline-flex items-center px-4 py-2 font-medium rounded-lg shadow-sm transition-colors duration-200 focus:outline-none focus:ring-2 mt-4 sm:mt-0 cursor-pointer ${(() => {
                   const isPro = user.subscription_plan === "pro";
 
                   return isPro

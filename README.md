@@ -1,4 +1,4 @@
-# Multi-Tenant Notes App
+# TeamScribe
 
 A modern, full-featured note-taking application built with a multi-tenant architecture, allowing multiple organizations (tenants) to use the service with complete data isolation and custom user management.
 
