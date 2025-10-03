@@ -6,6 +6,7 @@ export interface User {
   role: string;
   tenantId: string;
   tenantName: string;
+  subscription_plan: string;
 }
 
 // Types for notes
@@ -42,6 +43,10 @@ export interface ApiResponse<T> {
 export interface AuthContextType {
   user: User | null;
   isLoading: boolean;
-  login: (tenantId: string, email: string, password: string) => Promise<boolean>;
+  login: (
+    tenantId: string,
+    email: string,
+    password: string
+  ) => Promise<boolean>;
   logout: () => void;
 }
