@@ -1,13 +1,11 @@
-# Multi-Tenant SaaS Notes App
+# Multi-Tenant Notes App
 
 A modern, full-featured note-taking application built with a multi-tenant architecture, allowing multiple organizations (tenants) to use the service with complete data isolation and custom user management.
 
 ![Design !! ](public/appdesign.png)
 ![Authflow!! ](public/auth.png)
 
-🚀 **Live Demo**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
-
-> **Note:** To add your own app screenshot, place an image file named `preview.png` in the public directory. You can use a screenshot of your app's dashboard or login page.
+🚀 **Live Demo**: [https://multi-tenant-notes-app-fawn.vercel.app/](https://multi-tenant-notes-app-fawn.vercel.app/)
 
 ## Features
 
@@ -35,12 +33,12 @@ Each database query automatically filters by tenant ID, making it impossible for
 
 Ready to try the application? Use these test accounts (all use password: `password`):
 
-| Email | Role | Organization | Plan |
-|-------|------|-------------|------|
-| admin@acme.test | Admin | Acme Inc. | Pro |
-| user@acme.test | Member | Acme Inc. | Pro |
-| admin@globex.test | Admin | Globex Corp | Free |
-| user@globex.test | Member | Globex Corp | Free |
+| Email           | Role   | Organization |
+| --------------- | ------ | ------------ |
+| admin@org1.test | Admin  | ORG1         |
+| user@org1.test  | Member | ORG1         |
+| admin@org2.test | Admin  | ORG2         |
+| user@org2.test  | Member | ORG2         |
 
 ### Subscription Plans & Feature Gating
 
@@ -50,12 +48,10 @@ Our SaaS model offers tiered subscription plans with feature limitations:
   - Limited to 3 notes per organization
   - Perfect for small teams or testing
   - Core features available
-  
 - **Pro Plan**:
   - Unlimited notes
   - Enhanced feature set
   - Priority support
-  
 - **Seamless Upgrades**: Admins can upgrade with one click, instantly removing limitations
 - **Graceful Degradation**: Clear UI indicators when limits are reached
 
@@ -89,36 +85,33 @@ Check out our architecture diagrams and design documents:
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Supabase account (for database)
 
 ### Local Development Setup
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/Hrithik-12/multitenantsaasnotesapp.git
-   cd multitenantsaasnotesapp
+   git clone https://github.com/bhatia4404/MultiTenantNotesApp.git
+   cd MultiTenantNotesApp
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    # or
    yarn install
    ```
 
-3. **Environment configuration**
-   
-   Create a `.env.local` file with the following variables:
-   ```
-   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   JWT_SECRET=your-secure-jwt-secret
-   NODE_ENV=development
-   ```
+3. **Set up environment variables**
 
-4. **Start the development server**
+   Create a `.env` file in the root directory by copying the example file : `.env.example`
+
+4. **Run the development server**
+
    ```bash
    npm run dev
    # or
@@ -126,17 +119,18 @@ Check out our architecture diagrams and design documents:
    ```
 
 5. **Access the application**
-   
-   Open [http://localhost:3000](http://localhost:3000) in your browser
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Database Setup
 
 The application requires the following tables in Supabase:
+
 - `tenants`: Organization data and subscription information
 - `users`: User accounts with tenant associations
 - `notes`: Notes with tenant and user relationships
 
-Sample SQL schema is available in the `db` folder.
+A sample SQL schema is available in the `db` folder. You can run this schema in your Supabase SQL editor to set up the necessary tables.
 
 ## API Documentation
 
@@ -149,17 +143,21 @@ Sample SQL schema is available in the `db` folder.
 ### Notes Endpoints
 
 - **Get All Notes**: `GET /api/notes`
+
   - Returns all notes for the user's tenant (filtered by permissions)
   - Admin sees all notes, members see only their own
 
 - **Create Note**: `POST /api/notes`
+
   - Request body: `{ "title": "Note Title", "content": "Note content..." }`
   - Creates new note in the user's tenant
 
 - **Get Single Note**: `GET /api/notes/:id`
+
   - Returns specific note if user has permission
 
 - **Update Note**: `PUT /api/notes/:id`
+
   - Request body: `{ "title": "Updated Title", "content": "Updated content..." }`
   - Updates note if user has permission
 
@@ -169,6 +167,7 @@ Sample SQL schema is available in the `db` folder.
 ### Tenant Management
 
 - **Upgrade to Pro**: `POST /api/tenants/:slug/upgrade`
+
   - Upgrades tenant to Pro plan (admin only)
   - Removes note limit restriction
 
@@ -178,6 +177,7 @@ Sample SQL schema is available in the `db` folder.
 ### User Management
 
 - **List Users**: `GET /api/users`
+
   - Returns all users in the tenant (admin only)
 
 - **Invite User**: `POST /api/users`
@@ -191,42 +191,17 @@ Sample SQL schema is available in the `db` folder.
 
 ## Deployment
 
-This project is deployed on Vercel:
-
-- **Production URL**: [https://multitenantsaasnotesapp.vercel.app](https://multitenantsaasnotesapp.vercel.app)
+This project is optimized for deployment on [Vercel](https://vercel.com/).
 
 ### Deploy Your Own Instance
 
-1. Fork the repository
-2. Set up your Supabase database
-3. Connect your repository to Vercel
-4. Add the environment variables
-5. Deploy!
+1. **Fork the repository.**
+2. **Create a Supabase project** and set up the database schema using the provided SQL file.
+3. **Connect your forked repository to Vercel.**
+4. **Add the environment variables** from your `.env.local` file to your Vercel project settings.
+5. **Deploy!** Vercel will automatically build and deploy your application.
 
-## License
-
-This project is licensed under the MIT License.
-
-## Additional Resources
-
-### API Testing
-
-You can test the API endpoints using our Postman collection:
-- [Postman Collection](https://orange-comet-895516.postman.co/workspace/dikshit~ae2f8ef0-1aea-4cb6-b4d4-c7d3ede02bc0/collection/31961114-e9cc9d7f-4ad0-4f3a-8c21-621b1da65353?action=share&source=copy-link&creator=31961114)
-
-### Adding Screenshots to Your Fork
-
-To customize this README with your own screenshots:
-
-1. Take a screenshot of your application (dashboard, login page, or notes view)
-2. Save the image as `preview.png` 
-3. Place it in the `/public` directory of your repository
-4. The image will automatically appear in the README
-
-You can add additional images using standard markdown syntax:
-```markdown
-![Description of image](public/your-image-name.png)
-```
+- **Production URL**: [https://multi-tenant-notes-app-fawn.vercel.app/](https://multi-tenant-notes-app-fawn.vercel.app/)
 
 ## Acknowledgements
 
